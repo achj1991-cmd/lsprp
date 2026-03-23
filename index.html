@@ -150,7 +150,7 @@ body { font-family: Arial, sans-serif; background: #050608; color: #f4f4f4; }
 const ITEMS = [
   {id:"filtro_ar",nome:"Filtro de Ar",preco:30,materiais:[{nome:"Plástico",qtd:3,custo:0},{nome:"Aço",qtd:1,custo:0}]},
   {id:"combustivel",nome:"Combustível",preco:0,materiais:[{nome:"Borracha",qtd:3,custo:0},{nome:"Aço",qtd:3,custo:0}]},
-  {id:"bateria_ev",nome:"Bateria EV",preco:1700,materiais:[{nome:"Lingote de cobre",qtd:2,custo:0},{nome:"Partes Eletrónicas",qtd:6,custo:0},{nome:"Plástico",qtd:4,custo:47},{nome:"Aço",qtd:3,custo:0}]},
+  {id:"bateria_ev",nome:"Bateria EV",preco:1700,materiais:[{nome:"Lingote de cobre",qtd:2,custo:0},{nome:"Partes Eletrónicas",qtd:6,custo:0},{nome:"Plástico",qtd:4,custo:0},{nome:"Aço",qtd:3,custo:0}]},
   {id:"kit_fumo",nome:"Kit Fumo Pneus",preco:4400,materiais:[{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Lingote de zinco",qtd:1,custo:0}]},
   {id:"fita_adesiva",nome:"Fita Adesiva",preco:3500,materiais:[{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Lingote de zinco",qtd:1,custo:0},{nome:"Lingote de cobre",qtd:1,custo:0}]},
   {id:"conjunto_rodas",nome:"Conjunto de Rodas",preco:2500,materiais:[{nome:"Borracha",qtd:6,custo:0},{nome:"Aço",qtd:3,custo:0},{nome:"Ferro",qtd:2,custo:0},{nome:"Lingote de cobre",qtd:1,custo:0}]},
@@ -160,14 +160,14 @@ const ITEMS = [
   {id:"kit_extras",nome:"Kit de Extras",preco:3900,materiais:[{nome:"Lingote de zinco",qtd:1,custo:0},{nome:"Lingote de bauxite",qtd:2,custo:0},{nome:"Lingote de cobre",qtd:1,custo:0}]},
   {id:"pastilhas_travao",nome:"Pastilhas de Travão",preco:500,materiais:[{nome:"Borracha",qtd:4,custo:0},{nome:"Aço",qtd:2,custo:0}]},
   {id:"liq_arref_ev",nome:"Líquido Arrefecimento EV",preco:2000,materiais:[{nome:"Plástico",qtd:6,custo:0},{nome:"Borracha",qtd:3,custo:0},{nome:"Alumínio",qtd:2,custo:0}]},
-  {id:"oleo_motor",nome:"Óleo do Motor",preco:1000,materiais:[{nome:"Plástico",qtd:2,custo:47},{nome:"Aço",qtd:3,custo:0},{nome:"Borracha",qtd:3,custo:0}]},
+  {id:"oleo_motor",nome:"Óleo do Motor",preco:1000,materiais:[{nome:"Plástico",qtd:2,custo:0},{nome:"Aço",qtd:3,custo:0},{nome:"Borracha",qtd:3,custo:0}]},
   {id:"pecas_suspensao",nome:"Peças da Suspensão",preco:500,materiais:[{nome:"Aço",qtd:4,custo:0},{nome:"Borracha",qtd:2,custo:0},{nome:"Sucata metálica",qtd:3,custo:0}]},
   {id:"pecas_cosmeticas",nome:"Peças Cosméticas",preco:0,materiais:[{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Lingote de bauxite",qtd:1,custo:0}]},
   {id:"pneu_subst",nome:"Pneu de Substituição",preco:650,materiais:[{nome:"Borracha",qtd:6,custo:0},{nome:"Aço",qtd:2,custo:0}]},
   {id:"pecas_performance",nome:"Peças de Performance",preco:0,materiais:[{nome:"Aço",qtd:3,custo:0},{nome:"Ferro",qtd:2,custo:0},{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Sucata metálica",qtd:4,custo:0}]},
   {id:"kit_repintura",nome:"Kit de Repintura",preco:2500,materiais:[{nome:"Lingote de zinco",qtd:1,custo:0},{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Lingote de bauxite",qtd:1,custo:0}]},
-  {id:"vela_ignicao",nome:"Vela de Ignição",preco:775,materiais:[{nome:"Fio de cobre",qtd:4,custo:0},{nome:"Aço",qtd:4,custo:0},{nome:"Borracha",qtd:2,custo:0}]},
-  {id:"kit_repair",nome:"Kit de Reparação",preco:2500,materiais:[{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Fero",qtd:2,custo:0},{nome:"Lingote de bauxite",qtd:1,custo:0}]}
+  {id:"vela_ignicao",nome:"Vela de Ignição",preco:775,materiais:[{nome:"Fio de Cobre",qtd:4,custo:0},{nome:"Aço",qtd:4,custo:0},{nome:"Borracha",qtd:2,custo:0}]},
+  {id:"kit_repair",nome:"Kit de Reparação",preco:2500,materiais:[{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Ferro",qtd:2,custo:0},{nome:"Lingote de bauxite",qtd:1,custo:0}]}
 ];
 
 const MENU_COMPLETO = [
