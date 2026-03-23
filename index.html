@@ -575,24 +575,43 @@ function showPage(page) {
 async function enviarParaSheets(fatura) {
   const url = "https://script.google.com/macros/s/AKfycbyqG-iR5PzD8fR--4YisoEFgz4QU9RoG99KpMpKLLOezZ9_IhXsyB6N3fH23xIrCgXg/exec";
 
-  console.log("A enviar para Sheets:", fatura); // 👈 DEBUG
-
   try {
-    const res = await fetch(url, {
+    await fetch(url, {
       method: "POST",
+      mode: "no-cors", // 👈 ISTO RESOLVE
       body: JSON.stringify(fatura),
       headers: {
         "Content-Type": "application/json"
       }
     });
 
-    const text = await res.text();
-    console.log("Resposta:", text);
+    console.log("Enviado para Sheets ✅");
 
   } catch (err) {
     console.error("Erro ao enviar:", err);
   }
 }
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+
+  sheet.appendRow([
+    data.id,
+    data.dataHora,
+    data.cliente,
+    data.mecanico,
+    JSON.stringify(data.pecas),
+    data.totalSistema,
+    data.totalFinal,
+    data.status
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ result: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader("Access-Control-Allow-Origin", "*");
+}
+mode: "no-cors";
 renderPecas();
 renderMenuCompleto();
 renderCarrinho();
