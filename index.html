@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LS CUSTOMS - Oficina</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #050608; color: #f4f4f4; }
+.topbar { height: 60px; background: #111318; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; box-shadow: 0 2px 4px rgba(0,0,0,.6); }
+.logo { background: #ffcc00; color: #000; font-weight: bold; padding: 5px 10px; border-radius: 4px; font-size: 14px; }
+.topmenu span { margin: 0 8px; font-size: 12px; color: #aaa; }
+.topmenu span.active { color: #ffcc00; font-weight: bold; }
+.page { padding: 10px; }
+.tabs { display: flex; background: #14161f; border-radius: 14px; padding: 4px; margin-bottom: 10px; }
+.tab { flex: 1; text-align: center; padding: 10px 0; border-radius: 12px; font-size: 13px; color: #b0b0b0; cursor: pointer; }
+.tab.active { background: #ffcc00; color: #111318; font-weight: bold; box-shadow: 0 0 12px rgba(255, 204, 0, 0.4); }
+.section-title { font-size: 11px; color: #bebebe; margin: 6px 4px; }
+.card { background: #14161f; border-radius: 14px; padding: 14px; margin-bottom: 8px; position: relative; }
+.card.highlight { border: 1px solid #ffcc00; }
+.card-name { font-size: 14px; font-weight: 600; }
+.card-price { margin-top: 6px; font-size: 14px; color: #36d16f; }
+.card-btn { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 999px; background: #1f222c; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; cursor: pointer; }
+.menu-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.menu-title { font-size: 18px; font-weight: 800; color: #ffcc00; }
+.menu-price { font-size: 18px; font-weight: 800; color: #ffcc00; }
+.menu-list { display: grid; grid-template-columns: 1fr 1fr; grid-row-gap: 8px; column-gap: 12px; font-size: 13px; }
+.menu-tag { background: #ffcc00; color: #111318; font-weight: bold; border-radius: 6px; padding: 2px 8px; margin-right: 6px; font-size: 12px; display: inline-block; text-align: center; min-width: 28px; }
+.btn-main { margin-top: 14px; width: 100%; padding: 12px; border-radius: 999px; border: none; background: #ffcc00; color: #111318; font-weight: 800; font-size: 14px; cursor: pointer; }
+.cart { margin-top: 16px; background: #14161f; border-radius: 14px 14px 0 0; padding: 14px; }
+.cart-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+.cart-empty { text-align: center; font-size: 12px; color: #777; padding: 18px 0; }
+.cart-item { background: #151822; border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; font-size: 13px; }
+.cart-line-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.cart-line-bottom { display: flex; align-items: center; gap: 4px; }
+.cart-line-bottom button { width: 24px; height: 24px; border-radius: 6px; border: none; background: #22252f; color: #fff; cursor: pointer; font-size: 14px; }
+.cart-remove { margin-left: auto; color: #ff6666; font-size: 11px; cursor: pointer; }
+.cart-footer { margin-top: 8px; font-size: 13px; }
+.cart-footer input { width: 100%; margin-top: 4px; padding: 7px; border-radius: 8px; border: 1px solid #333; background: #1a1d27; color: #eee; }
+.cart-row { display: flex; justify-content: space-between; margin-top: 6px; }
+.cart-total { color: #ffcc00; font-weight: 700; }
+.btn-finish { margin-top: 10px; width: 100%; padding: 11px; border-radius: 999px; border: none; background: #00c853; color: #000; font-weight: 800; cursor: pointer; }
+.materiais { margin-top: 8px; padding: 8px; background: #0d0f14; border-radius: 8px; font-size: 11px; color: #aaa; }
+.materiais-title { color: #ffcc00; font-weight: 600; margin-bottom: 4px; }
+.mat-item { margin-bottom: 2px; }
+.mat-custo { color: #ff6666; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">LSCUSTOMS</div>
+  <div class="topmenu">
+    <span onclick="showPage('home')">HOME</span>
+    <span class="active" id="menuServico" onclick="showPage('servico')">SERVIÇO</span>
+    <span id="menuLogistica" onclick="showPage('logistica')">LOGÍSTICA</span>
+    <span id="menuStock" onclick="showPage('stock')">STOCK</span>
+    <span id="menuFaturas" onclick="showPage('faturas')">FATURAS</span>
+    <span>SAIR</span>
+  </div>
+</div>
+
+<div class="page">
+  <div id="pageHome">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:70vh;text-align:center;">
+      <div style="font-size:48px;font-weight:800;color:#ffcc00;margin-bottom:16px;">LSCUSTOMS</div>
+      <div style="font-size:18px;color:#ddd;">Oficina</div>
+      <div style="font-size:14px;color:#aaa;margin-top:8px;">Sistema de Gestão de Serviços</div>
+    </div>
+  </div>
+
+  <div id="pageServico" style="display:none;">
+  <div class="tabs">
+    <div class="tab active" id="tabPecas" onclick="showTab('pecas')">🔧 PEÇAS INDIVIDUAIS</div>
+    <div class="tab" id="tabMenus" onclick="showTab('menus')">⭐ MENUS COMPLETOS</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 400px;gap:10px;">
+    <div>
+      <div id="viewPecas">
+        <div class="section-title">COMPONENTES DE OFICINA EV</div>
+        <div id="listaPecas"></div>
+      </div>
+
+      <div id="viewMenus" style="display:none;">
+        <div class="card highlight">
+          <div class="menu-header">
+            <div>
+              <div class="menu-title">MANUTENÇÃO COMPLETA</div>
+              <div style="font-size:12px;color:#ddd;margin-top:4px;">
+                Serviço completo de manutenção com todas as peças essenciais.
+              </div>
+            </div>
+            <div class="menu-price" id="menuPreco">0,00 €</div>
+          </div>
+          <div class="menu-list" id="menuLista"></div>
+          <button class="btn-main" onclick="adicionarMenuCompleto()">⚡ ADICIONAR AO CARRINHO</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:sticky;top:10px;">
+      <div class="cart">
+        <div class="cart-header">
+          <span>🛒 CARRINHO</span>
+          <span id="cartCount">0</span>
+        </div>
+        <div id="cartBody" class="cart-empty">SEM PEÇAS</div>
+        <div class="cart-footer">
+          <div>Valor cobrado ingame (€):</div>
+          <input id="valorIngame" type="number" value="0">
+          <div class="cart-row">
+            <span>Sistema:</span>
+            <span id="cartSistema" class="cart-total">0,00 €</span>
+          </div>
+          <div class="cart-row">
+            <span>Total:</span>
+            <span id="cartTotal" class="cart-total">0,00 €</span>
+          </div>
+          <button class="btn-finish" onclick="finalizarCompra()">FINALIZAR</button>
+        </div>
+      </div>
+      
+      <div class="cart" style="background:#14161f;margin-top:10px;">
+        <div class="cart-header">
+          <span>📦 MATERIAIS NECESSÁRIOS</span>
+        </div>
+        <div id="materiaisCarrinho" style="font-size:12px;max-height:300px;overflow-y:auto;"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="pageLogistica" style="display:none;">
+    <div class="section-title">📦 LOGÍSTICA - MATERIAIS POR ORDEM DE SERVIÇO</div>
+    <div id="listaLogistica"></div>
+  </div>
+
+  <div id="pageStock" style="display:none;">
+    <div class="section-title">📊 STOCK - INVENTÁRIO DE MATERIAIS</div>
+    <div id="listaStock"></div>
+  </div>
+
+  <div id="pageFaturas" style="display:none;">
+    <div class="section-title">🧾 FATURAS REGISTADAS</div>
+    <div id="listaFaturas" style="margin-bottom:80px;"></div>
+  </div>
+</div>
+
+<script>
+const ITEMS = [
+  {id:"filtro_ar",nome:"Filtro de Ar",preco:350,materiais:[{nome:"Plástico",qtd:3,custo:47},{nome:"Aço",qtd:1,custo:0}]},
+  {id:"combustivel",nome:"Combustível",preco:0,materiais:[{nome:"Borracha",qtd:3,custo:0},{nome:"Aço",qtd:3,custo:0}]},
+  {id:"bateria_ev",nome:"Bateria EV",preco:1700,materiais:[{nome:"Lingote de cobre",qtd:2,custo:0},{nome:"Partes Eletrónicas",qtd:6,custo:0},{nome:"Plástico",qtd:4,custo:47},{nome:"Aço",qtd:3,custo:0}]},
+  {id:"kit_fumo",nome:"Kit Fumo Pneus",preco:4400,materiais:[{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Lingote de zinco",qtd:1,custo:0}]},
+  {id:"fita_adesiva",nome:"Fita Adesiva",preco:3500,materiais:[{nome:"Saco de carvão",qtd:1,custo:0},{nome:"Plástico",qtd:2,custo:47}]},
+  {id:"conjunto_rodas",nome:"Conjunto de Rodas",preco:2500,materiais:[{nome:"Borracha",qtd:6,custo:0},{nome:"Aço",qtd:1,custo:0}]},
+  {id:"controlador_ilum",nome:"Controlador Iluminação",preco:1800,materiais:[{nome:"Lingote de cobre",qtd:1,custo:0},{nome:"Partes Eletrónicas",qtd:2,custo:0}]},
+  {id:"embalagem_subst",nome:"Embraiagem",preco:500,materiais:[{nome:"Plástico",qtd:3,custo:47}]},
+  {id:"kit_limpeza",nome:"Kit de Limpeza",preco:1500,materiais:[{nome:"Plástico",qtd:1,custo:47},{nome:"Saco de carvão",qtd:1,custo:0}]},
+  {id:"kit_extras",nome:"Kit de Extras",preco:3900,materiais:[{nome:"Plástico",qtd:1,custo:47},{nome:"Alumínio",qtd:1,custo:0}]},
+  {id:"pastilhas_travao",nome:"Pastilhas de Travão",preco:500,materiais:[{nome:"Ferro",qtd:3,custo:0},{nome:"Alumínio",qtd:2,custo:0}]},
+  {id:"liq_arref_ev",nome:"Líquido Arrefecimento EV",preco:2000,materiais:[{nome:"Plástico",qtd:3,custo:47}]},
+  {id:"oleo_motor",nome:"Óleo do Motor",preco:1000,materiais:[{nome:"Plástico",qtd:2,custo:47},{nome:"Combustível",qtd:1,custo:0}]},
+  {id:"pecas_suspensao",nome:"Peças da Suspensão",preco:500,materiais:[{nome:"Ferro",qtd:6,custo:0},{nome:"Borracha",qtd:3,custo:0}]},
+  {id:"pecas_cosmeticas",nome:"Peças Cosméticas",preco:0,materiais:[{nome:"Plástico",qtd:1,custo:47},{nome:"Alumínio",qtd:1,custo:0}]},
+  {id:"pneu_subst",nome:"Pneu de Substituição",preco:650,materiais:[{nome:"Borracha",qtd:6,custo:0},{nome:"Aço",qtd:2,custo:0}]},
+  {id:"pecas_performance",nome:"Peças de Performance",preco:0,materiais:[{nome:"Aço",qtd:2,custo:0},{nome:"Alumínio",qtd:1,custo:0}]},
+  {id:"kit_repintura",nome:"Kit de Repintura",preco:2500,materiais:[{nome:"Plástico",qtd:1,custo:47},{nome:"Saco de carvão",qtd:1,custo:0}]},
+  {id:"vela_ignicao",nome:"Vela de Ignição",preco:775,materiais:[{nome:"Lingote de cobre",qtd:4,custo:62}]}
+];
+
+const MENU_COMPLETO = [
+  {id:"combustivel",nome:"Combustível",qtd:2},
+  {id:"filtro_ar",nome:"Filtro de Ar",qtd:1},
+  {id:"pastilhas_travao",nome:"Pastilhas de Travão",qtd:4},
+  {id:"pneu_subst",nome:"Pneus de Substituição",qtd:4},
+  {id:"embalagem_subst",nome:"Embalagem",qtd:1},
+  {id:"oleo_motor",nome:"Óleo do Motor",qtd:1},
+  {id:"pecas_suspensao",nome:"Peças de Suspensão",qtd:1},
+  {id:"vela_ignicao",nome:"Vela de Ignição",qtd:4}
+];
+
+const carrinho = [];
+
+const MATERIAIS_UNICOS = [
+  "Plástico","Aço","Borracha","Lingote de cobre","Partes Eletrónicas",
+  "Saco de carvão","Lingote de zinco","Alumínio","Ferro","Combustível"
+];
+
+const stockMateriais = {};
+MATERIAIS_UNICOS.forEach(m => { stockMateriais[m] = 0; });
+
+const faturas = JSON.parse(localStorage.getItem("faturas_oficina") || "[]");
+
+function money(v) {
+  return v.toLocaleString("pt-PT", {minimumFractionDigits:2,maximumFractionDigits:2}) + " €";
+}
+
+function renderPecas() {
+  const wrap = document.getElementById("listaPecas");
+  wrap.innerHTML = "";
+  ITEMS.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "card";
+    
+    let custoTotal = 0;
+    p.materiais.forEach(m => { custoTotal += m.qtd * m.custo; });
+    
+    let matHtml = '<div class="materiais"><div class="materiais-title">Materiais necessários:</div>';
+    p.materiais.forEach(m => {
+      matHtml += `<div class="mat-item">• ${m.qtd}x ${m.nome}</div>`;
+    });
+    if(custoTotal > 0) {
+      matHtml += `<div class="mat-custo">Custo: ${money(custoTotal)}</div>`;
+    }
+    matHtml += '</div>';
+    
+    div.innerHTML = `
+      <div class="card-name">${p.nome}</div>
+      <div class="card-price">${money(p.preco)}</div>
+      ${matHtml}
+      <div class="card-btn" onclick="addPeca('${p.id}')">+</div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+function renderMenuCompleto() {
+  const lista = document.getElementById("menuLista");
+  lista.innerHTML = "";
+  let total = 0;
+  MENU_COMPLETO.forEach(m => {
+    const peca = ITEMS.find(p => p.id === m.id);
+    if(!peca) return;
+    total += peca.preco * m.qtd;
+    const div = document.createElement("div");
+    div.innerHTML = `<span class="menu-tag">${m.qtd}x</span> ${m.nome}`;
+    lista.appendChild(div);
+  });
+  document.getElementById("menuPreco").innerText = money(total);
+}
+
+function addPeca(id, qtd = 1) {
+  const linha = carrinho.find(l => l.id === id);
+  if (linha) linha.qtd += qtd;
+  else carrinho.push({ id, qtd });
+  renderCarrinho();
+}
+
+function adicionarMenuCompleto() {
+  MENU_COMPLETO.forEach(m => {
+    addPeca(m.id, m.qtd);
+  });
+}
+
+function alterarQtd(id, delta) {
+  const linha = carrinho.find(l => l.id === id);
+  if (!linha) return;
+  linha.qtd += delta;
+  if (linha.qtd <= 0) {
+    const i = carrinho.indexOf(linha);
+    carrinho.splice(i, 1);
+  }
+  renderCarrinho();
+}
+
+function removerLinha(id) {
+  const i = carrinho.findIndex(l => l.id === id);
+  if (i >= 0) carrinho.splice(i, 1);
+  renderCarrinho();
+}
+
+function renderCarrinho() {
+  const body = document.getElementById("cartBody");
+  const countSpan = document.getElementById("cartCount");
+  if (carrinho.length === 0) {
+    body.className = "cart-empty";
+    body.innerHTML = "SEM PEÇAS";
+    countSpan.innerText = "0";
+    document.getElementById("cartSistema").innerText = "0,00 €";
+    document.getElementById("cartTotal").innerText = "0,00 €";
+    document.getElementById("materiaisCarrinho").innerHTML = '<div class="cart-empty">CARRINHO VAZIO</div>';
+    return;
+  }
+  body.className = "";
+  body.innerHTML = "";
+  let total = 0;
+  carrinho.forEach(l => {
+    const p = ITEMS.find(x => x.id === l.id);
+    if (!p) return;
+    const linhaTotal = p.preco * l.qtd;
+    total += linhaTotal;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <div class="cart-line-top">
+        <span>${p.nome}</span>
+        <span>${money(linhaTotal)}</span>
+      </div>
+      <div class="cart-line-bottom">
+        <button onclick="alterarQtd('${p.id}',-1)">-</button>
+        <span>${l.qtd}</span>
+        <button onclick="alterarQtd('${p.id}',1)">+</button>
+        <span class="cart-remove" onclick="removerLinha('${p.id}')">REMOVER</span>
+      </div>
+    `;
+    body.appendChild(div);
+  });
+  countSpan.innerText = String(carrinho.length);
+  document.getElementById("cartSistema").innerText = money(total);
+  const valorIngame = parseFloat(document.getElementById("valorIngame").value || "0");
+  document.getElementById("cartTotal").innerText = money(valorIngame || total);
+  
+  const materiaisTotais = {};
+  carrinho.forEach(l => {
+    const p = ITEMS.find(x => x.id === l.id);
+    if(!p) return;
+    p.materiais.forEach(m => {
+      if(!materiaisTotais[m.nome]) materiaisTotais[m.nome] = 0;
+      materiaisTotais[m.nome] += m.qtd * l.qtd;
+    });
+  });
+  
+  const matWrap = document.getElementById("materiaisCarrinho");
+  matWrap.innerHTML = "";
+  Object.keys(materiaisTotais).sort().forEach(nome => {
+    const div = document.createElement("div");
+    div.style.cssText = "background:#151822;border-radius:8px;padding:8px;margin-bottom:6px;display:flex;justify-content:space-between;";
+    div.innerHTML = `<span>${nome}</span><span style="color:#ffcc00;font-weight:600;">${materiaisTotais[nome]}x</span>`;
+    matWrap.appendChild(div);
+  });
+}
+
+function showTab(tab) {
+  const vP = document.getElementById("viewPecas");
+  const vM = document.getElementById("viewMenus");
+  const tP = document.getElementById("tabPecas");
+  const tM = document.getElementById("tabMenus");
+  if (tab === "pecas") {
+    vP.style.display = "";
+    vM.style.display = "none";
+    tP.classList.add("active");
+    tM.classList.remove("active");
+  } else {
+    vP.style.display = "none";
+    vM.style.display = "";
+    tM.classList.add("active");
+    tP.classList.remove("active");
+  }
+}
+
+document.getElementById("valorIngame").addEventListener("input", renderCarrinho);
+
+function renderLogistica() {
+  const wrap = document.getElementById("listaLogistica");
+  wrap.innerHTML = "";
+  ITEMS.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "card";
+    let matHtml = '<div style="margin-top:8px;font-size:12px;">';
+    p.materiais.forEach(m => {
+      matHtml += `<div style="margin-bottom:4px;">• ${m.qtd}x ${m.nome}</div>`;
+    });
+    matHtml += '</div>';
+    div.innerHTML = `
+      <div class="card-name">${p.nome}</div>
+      ${matHtml}
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+function renderStock() {
+  const wrap = document.getElementById("listaStock");
+  wrap.innerHTML = "";
+  MATERIAIS_UNICOS.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="card-name">${m}</div>
+        <input type="number" value="${stockMateriais[m]}" 
+          style="width:80px;padding:6px;border-radius:6px;border:1px solid #333;background:#1a1d27;color:#eee;text-align:center;"
+          onchange="stockMateriais['${m}'] = parseInt(this.value) || 0">
+      </div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+function finalizarCompra() {
+  if(carrinho.length === 0) {
+    alert("Carrinho vazio!");
+    return;
+  }
+
+    const cliente = prompt("Nome do Cliente:");
+if(!cliente || cliente.trim() === "") {
+  alert("Deves inserir o nome do cliente!");
+  return;
+}
+
+const mecanico = prompt("Nome do Mecânico:");
+if(!mecanico || mecanico.trim() === "") {
+  alert("Deves inserir o nome do mecânico!");
+  return;
+}
+  
+  const now = new Date();
+  const dataHora = now.toLocaleString("pt-PT");
+  
+  let totalSistema = 0;
+  const pecasCompradas = [];
+  carrinho.forEach(l => {
+    const p = ITEMS.find(x => x.id === l.id);
+    if(!p) return;
+    const subtotal = p.preco * l.qtd;
+    totalSistema += subtotal;
+    pecasCompradas.push({
+      nome: p.nome,
+      qtd: l.qtd,
+      precoUnit: p.preco,
+      subtotal: subtotal
+    });
+  });
+  
+  const valorIngame = parseFloat(document.getElementById("valorIngame").value || "0");
+  const totalFinal = valorIngame || totalSistema;
+  
+  const fatura = {
+    id: Date.now(),
+    cliente: cliente.trim(),
+    mecanico: mecanico.trim(),
+    dataHora: dataHora,
+    pecas: pecasCompradas,
+    totalSistema: totalSistema,
+    valorIngame: valorIngame,
+    totalFinal: totalFinal,
+    status: "Em Progresso"
+  };
+  
+  faturas.push(fatura);
+  localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
+  
+  carrinho.length = 0;
+  document.getElementById("valorIngame").value = "0";
+  renderCarrinho();
+  
+  alert(`✅ Ordem de Serviço criada!\n\nCliente: ${cliente}\nMecânico: ${mecanico}\nTotal: ${money(totalFinal)}`);
+  
+  showPage('faturas');
+}
+
+function renderFaturas() {
+  const wrap = document.getElementById("listaFaturas");
+  wrap.innerHTML = "";
+  
+  if(faturas.length === 0) {
+    wrap.innerHTML = '<div class="cart-empty">SEM FATURAS REGISTADAS</div>';
+    return;
+  }
+  
+  const faturasOrdenadas = [...faturas].reverse();
+  
+  faturasOrdenadas.forEach(f => {
+    const div = document.createElement("div");
+    div.className = "card";
+    
+    let pecasHtml = '<div style="margin-top:8px;font-size:12px;color:#ddd;">';
+    f.pecas.forEach(p => {
+      pecasHtml += `<div style="margin-bottom:2px;">• ${p.qtd}x ${p.nome} - ${money(p.subtotal)}</div>`;
+    });
+    pecasHtml += '</div>';
+    
+    const statusColor = f.status === "Concluída" ? "#00c853" : "#ffcc00";
+    const statusIcon = f.status === "Concluída" ? "✅" : "⏳";
+    
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <div style="flex:1;">
+          <div class="card-name">👤 ${f.cliente}</div>
+          <div style="font-size:12px;color:#ddd;margin-top:2px;">🔧 ${f.mecanico}</div>
+          <div style="font-size:11px;color:#aaa;margin-top:2px;">${f.dataHora}</div>
+          <div style="font-size:11px;color:${statusColor};margin-top:4px;font-weight:600;">${statusIcon} ${f.status}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="card-price">${money(f.totalFinal)}</div>
+          ${f.valorIngame > 0 ? `<div style="font-size:10px;color:#aaa;">Ingame: ${money(f.valorIngame)}</div>` : ''}
+        </div>
+      </div>
+      ${pecasHtml}
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #22252f;font-size:11px;color:#ffcc00;">
+        Sistema: ${money(f.totalSistema)}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        ${f.status !== "Concluída" ? `
+          <button onclick="concluirOrdem(${f.id})" 
+            style="padding:8px;border-radius:6px;border:none;background:#00c853;color:#000;cursor:pointer;font-size:11px;font-weight:700;">
+            ✅ CONCLUIR
+          </button>
+        ` : '<div></div>'}
+        <button onclick="apagarFatura(${f.id})" 
+          style="padding:8px;border-radius:6px;border:none;background:#ff6666;color:#fff;cursor:pointer;font-size:11px;font-weight:600;">
+          🗑️ APAGAR
+        </button>
+      </div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+function concluirOrdem(id) {
+  const fatura = faturas.find(f => f.id === id);
+  if(fatura) {
+    fatura.status = "Concluída";
+    localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
+    renderFaturas();
+    alert("✅ Ordem de serviço concluída!");
+  }
+}
+
+function apagarFatura(id) {
+  if(!confirm("Tens a certeza que queres apagar esta ordem?")) return;
+  
+  const index = faturas.findIndex(f => f.id === id);
+  if(index >= 0) {
+    faturas.splice(index, 1);
+    localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
+    renderFaturas();
+  }
+}
+
+function showPage(page) {
+  const pH = document.getElementById("pageHome");
+  const pS = document.getElementById("pageServico");
+  const pL = document.getElementById("pageLogistica");
+  const pSt = document.getElementById("pageStock");
+  const pF = document.getElementById("pageFaturas");
+  const mS = document.getElementById("menuServico");
+  const mL = document.getElementById("menuLogistica");
+  const mSt = document.getElementById("menuStock");
+  const mF = document.getElementById("menuFaturas");
+  
+  pH.style.display = "none";
+  pS.style.display = "none";
+  pL.style.display = "none";
+  pSt.style.display = "none";
+  pF.style.display = "none";
+  mS.classList.remove("active");
+  mL.classList.remove("active");
+  mSt.classList.remove("active");
+  mF.classList.remove("active");
+  
+  if(page === "home") {
+    pH.style.display = "";
+  } else if(page === "servico") {
+    pS.style.display = "";
+    mS.classList.add("active");
+  } else if(page === "logistica") {
+    pL.style.display = "";
+    mL.classList.add("active");
+    renderLogistica();
+  } else if(page === "stock") {
+    pSt.style.display = "";
+    mSt.classList.add("active");
+    renderStock();
+  } else if(page === "faturas") {
+    pF.style.display = "";
+    mF.classList.add("active");
+    renderFaturas();
+  }
+}
+async function enviarParaSheets(fatura) {
+  const url = "https://script.google.com/macros/s/AKfycbyqG-iR5PzD8fR--4YisoEFgz4QU9RoG99KpMpKLLOezZ9_IhXsyB6N3fH23xIrCgXg/exec";
+
+  try {
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(fatura),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (err) {
+    console.error("Erro ao enviar:", err);
+  }
+}
+renderPecas();
+renderMenuCompleto();
+renderCarrinho();
+showPage('home');
+</script>
+</body>
+</html>
