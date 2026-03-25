@@ -310,7 +310,7 @@ function renderCarrinho() {
   countSpan.innerText = String(carrinho.length);
   document.getElementById("cartSistema").innerText = money(total);
   const valorIngame = parseFloat(document.getElementById("valorIngame").value || "0");
-  document.getElementById("cartTotal").innerText = money(valorIngame || total);
+  document.getElementById("cartTotal").innerText = money(valorIngame + total);
   
   const materiaisTotais = {};
   carrinho.forEach(l => {
