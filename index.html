@@ -426,7 +426,9 @@ if(!mecanico || mecanico.trim() === "") {
   });
   
   const valorIngame = parseFloat(document.getElementById("valorIngame").value || "0");
-  const totalFinal = valorIngame + totalSistema;
+const totalSistemaNum = parseFloat(totalSistema) || 0;
+
+const totalFinal = totalSistemaNum + valorIngame;
   
   const fatura = {
     id: Date.now(),
