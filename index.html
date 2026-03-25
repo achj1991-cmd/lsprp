@@ -175,7 +175,7 @@ const MENU_COMPLETO = [
   {id:"filtro_ar",nome:"Filtro de Ar",qtd:1},
   {id:"pastilhas_travao",nome:"Pastilhas de Travão",qtd:4},
   {id:"pneu_subst",nome:"Pneus de Substituição",qtd:4},
-  {id:"embalagem_subst",nome:"Embalagem",qtd:1},
+  {id:"embalagem_subst",nome:"Embraiagem",qtd:1},
   {id:"oleo_motor",nome:"Óleo do Motor",qtd:1},
   {id:"pecas_suspensao",nome:"Peças de Suspensão",qtd:1},
   {id:"vela_ignicao",nome:"Vela de Ignição",qtd:4}
@@ -189,7 +189,7 @@ const MATERIAIS_UNICOS = [
 ];
 
 const stockMateriais = {};
-MATERIAIS_UNICOS.forEach(m => { stockMateriais[m] = 0; });
+MATERIAIS_UNICOS.forEach(m => { stockMateriais[m] = 150; });
 
 const faturas = JSON.parse(localStorage.getItem("faturas_oficina") || "[]");
 
@@ -426,7 +426,7 @@ if(!mecanico || mecanico.trim() === "") {
   });
   
   const valorIngame = parseFloat(document.getElementById("valorIngame").value || "0");
-  const totalFinal = valorIngame || totalSistema;
+  const totalFinal = valorIngame + totalSistema;
   
   const fatura = {
     id: Date.now(),
