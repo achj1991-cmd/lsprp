@@ -515,7 +515,12 @@ function concluirOrdem(id) {
   const fatura = faturas.find(f => f.id === id);
   if(fatura) {
     fatura.status = "Concluída";
+
     localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
+
+    // 👉 ENVIAR SÓ AQUI
+    enviarParaSheets(fatura);
+
     renderFaturas();
     alert("✅ Ordem de serviço concluída!");
   }
