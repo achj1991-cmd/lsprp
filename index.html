@@ -443,8 +443,6 @@ const totalFinal = totalSistemaNum + valorIngame;
   
   faturas.push(fatura);
   localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
-
-enviarParaSheets(fatura);
   
   carrinho.length = 0;
   document.getElementById("valorIngame").value = "0";
@@ -530,6 +528,7 @@ function apagarFatura(id) {
   if(index >= 0) {
     faturas.splice(index, 1);
     localStorage.setItem("faturas_oficina", JSON.stringify(faturas));
+    enviarParaSheets(fatura);
     renderFaturas();
   }
 }
