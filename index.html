@@ -601,7 +601,15 @@ function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const data = JSON.parse(e.postData.contents);
 
-  sheet.appendRow([
+  // 👉 encontrar a primeira linha realmente vazia
+  const values = sheet.getRange("A:A").getValues();
+  let nextRow = values.findIndex(r => r[0] === "") + 1;
+
+  if (nextRow === 0) {
+    nextRow = values.length + 1;
+  }
+
+  sheet.getRange(nextRow, 1, 1, 8).setValues([[
     data.id,
     data.dataHora,
     data.cliente,
@@ -610,7 +618,13 @@ function doPost(e) {
     data.totalSistema,
     data.totalFinal,
     data.status
-  ]);
+  ]]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ result: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader("Access-Control-Allow-Origin", "*");
+}
 
   return ContentService
     .createTextOutput(JSON.stringify({ result: "ok" }))
