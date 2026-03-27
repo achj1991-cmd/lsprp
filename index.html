@@ -626,11 +626,6 @@ function doPost(e) {
     .setHeader("Access-Control-Allow-Origin", "*");
 }
 
-  return ContentService
-    .createTextOutput(JSON.stringify({ result: "ok" }))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader("Access-Control-Allow-Origin", "*");
-}
 mode: "no-cors";
 renderPecas();
 renderMenuCompleto();
